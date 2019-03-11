@@ -24,11 +24,11 @@
 
 </head>
 
-<body>
+<body class="frame-1">
 
     <div id="app">
         {{-- @include('layouts.navbar.bar') --}}
-        <main>
+        <main class="position-relative">
             @yield('content')
         </main>
         {{-- @include('layouts.footer.layout') --}}
