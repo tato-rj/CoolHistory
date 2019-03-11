@@ -16352,3 +16352,21 @@ readers do not read off random characters that represent icons */
   font-weight: 400;
 }
 
+body {
+  background: white;
+  transition: background-color 0.5s ease;
+}
+
+.frame {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: none;
+}
+
+.frame:first-of-type {
+  display: block;
+}
+

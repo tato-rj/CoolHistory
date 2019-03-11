@@ -1,42 +1,55 @@
 @extends('layouts.app')
 
 @push('header')
+<link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
 <style type="text/css">
 body {
-	background: white;
-	transition: background-color 0.5s ease;
+	font-family: 'Nunito', sans-serif;
 }
 
-.frame {
-	position: fixed;
-	left: 0;
-	top: 0;
+h1 {
+	font-size: 3.25rem;
+}
+
+.timeline-view::before {
+	content: '';
+	width: 1px;
+	background-color: white;
 	height: 100vh;
-	width: 100%;
-	display: none;
+	position: absolute;
+	top: 0;
+	left: 50%;
 }
-
-.frame:first-of-type {
-	display: block;
-}
-
 </style>
 @endpush
 
 @section('content')
 
-@component('components.frame')
-	<div class="d-flex align-items-end justify-content-center h-100">
-		<h3 class="mb-4"><i class="fas fa-arrow-down fa-lg"></i></h3>
-	</div>
-@endcomponent
-@component('components.frame', ['bg' => 'blue'])
-<p>1</p>
-@endcomponent
-@component('components.frame', ['bg' => 'green'])
-<p>2</p>
-@endcomponent
+	@component('components.frame')
+		<div class="d-flex align-items-end justify-content-center h-100">
+			<h3 class="mb-4"><i class="fas fa-arrow-down fa-lg"></i></h3>
+		</div>
+	@endcomponent
 
+	@component('components.frame', ['bg' => 'blue'])
+		@include('components.timeline.body', ['date' => 1900])
+	@endcomponent
+
+	@component('components.frame', ['bg' => 'teal'])
+		@include('components.timeline.body', ['date' => 1920])
+	@endcomponent
+
+	@component('components.frame', ['bg' => 'green'])
+		@include('components.timeline.body', ['date' => 1940])
+	@endcomponent
+
+	@component('components.frame', ['bg' => 'orange'])
+		@include('components.timeline.body', ['date' => 1960])
+	@endcomponent
+
+	@component('components.frame', ['bg' => 'purple'])
+		@include('components.timeline.body', ['date' => 1980])
+	@endcomponent
 
 @endsection
 
