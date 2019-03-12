@@ -7,8 +7,14 @@ body {
 	font-family: 'Nunito', sans-serif;
 }
 
+button:focus {outline:0;}
+
 h1 {
 	font-size: 3.25rem;
+}
+
+.tooltip {
+	margin-right: 4px;
 }
 
 .timeline-view::before {
@@ -20,66 +26,219 @@ h1 {
 	top: 0;
 	left: 50%;
 }
+
+.timeline-view {
+	font-size: 1.4em;
+	position: relative;
+	text-align: center;
+}
+
+p {
+	font-size: 1.4em;
+}
+
+.absolute-bottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+.fixed-right {
+	position: fixed;
+	right: 0;
+	top: 0;
+	height: 100vh;
+}
+
+.carousel-item iframe {
+	height: 100%;
+	width: 100%;
+}
+
+.carousel-caption {
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	padding-bottom: 52px;
+	background: rgba(0,0,0,0.5);
+}
+
+.carousel-caption p {
+	width: 50%;
+	margin: 0 auto;
+	font-size: 1em;
+}
+
+#nav-buttons button {
+    background: transparent;
+    border: none;
+    opacity: .3;
+    transform: scale(.8);
+    transition: .2s;
+}
+
+#nav-buttons button:hover {
+	transform: scale(1.15);
+	opacity: 1;
+}
+
+#nav-buttons button.active {
+	opacity: 1;
+	transform: scale(1.15);
+}
+
+#nav-buttons button:not(:last-of-type) {
+	margin-bottom: 8px;
+}
+
+.nav-light button {
+	color: white !important;
+}
 </style>
 @endpush
 
 @section('content')
+	<div class="fixed-right nav" style="z-index: 1000">
+		<div id="nav-buttons" class="d-flex flex-center flex-column h-100 mr-2"></div>
+	</div>
 
-	@component('components.frame')
-		<div class="d-flex align-items-end justify-content-center h-100">
+	@component('components.timeline.cover')
+	<div class="container h-100">
+		<div class="row flex-center h-100">
+			<div class="text-center col-10 col-xs-8">
+				<h1 class="font-weight-bold">88 keys</h1>
+				<p>A brief and fun timeline of the most awesome instrument of all!</p>
+			</div>
+		</div>
+		<div class="absolute-bottom text-center">
 			<h3 class="mb-4"><i class="fas fa-arrow-down fa-lg"></i></h3>
 		</div>
+	</div>
 	@endcomponent
 
-	@component('components.frame', ['bg' => 'blue'])
-		@include('components.timeline.body', ['date' => 1900])
-	@endcomponent
+	@include('components.timeline.frame', [
+		'bg' => 'blue',
+		'date' => 1720, 
+		'text' => 'Bartolomeo Cristofori introduced the first hammer-action pianoforte, and is credited by many as the “inventor” of the piano',
+		'media' => true])
 
-	@component('components.frame', ['bg' => 'teal'])
-		@include('components.timeline.body', ['date' => 1920])
-	@endcomponent
+	@include('components.timeline.frame', [
+		'bg' => 'teal',
+		'date' => 1780, 
+		'text' => 'The Stein and Stein-Streicher piano hammer changes improved the tone of grand pianos and were preferred by many contemporary composers'])
 
-	@component('components.frame', ['bg' => 'green'])
-		@include('components.timeline.body', ['date' => 1940])
-	@endcomponent
 
-	@component('components.frame', ['bg' => 'orange'])
-		@include('components.timeline.body', ['date' => 1960])
-	@endcomponent
+	@include('components.timeline.frame', [
+		'bg' => 'green',
+		'date' => 1811, 
+		'text' => 'Several European manufacturers introduced upright pianos. Wornum’s upright became popular for its improved sound quality from others'])
 
-	@component('components.frame', ['bg' => 'purple'])
-		@include('components.timeline.body', ['date' => 1980])
-	@endcomponent
+	@include('components.timeline.frame', [
+		'bg' => 'orange',
+		'date' => 1855, 
+		'text' => 'Steinway & Sons introduced the first square piano with a new scale that revolutionized the sound quality and was adopted by all future manufacturers'])
+
+	@include('components.timeline.frame', [
+		'bg' => 'purple',
+		'date' => 1880, 
+		'text' => 'The square piano was officially “extinct” in both Europe and America. Uprights were the go-to space-saving pianos for the industrialization of urban cities'])
 
 @endsection
 
 @push('scripts')
+
+<script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c872ce214693180"></script>
+
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip({trigger: 'hover',})
+});
+
+// GO TO FRAME ON NAV CLICK
+$(document).on('click', '#nav-buttons button', function(event) {
+	let $button = $(this);
+    let target = $button.attr('data-target');
+
+	$('html, body').animate({
+		scrollTop: parseInt(target) + 10
+	}, 500, 'linear');
+});
+
+$('button.open-media, button.close-media').on('click', function() {
+	$('.addthis-smartlayers, .nav').toggle();
+	$('#media-modal').fadeToggle();
+
+	stopVideo(document.getElementsByClassName("carousel-video"));
+
+});
+
+$('.carousel').on('slide.bs.carousel', function () {
+	stopVideo(document.getElementsByClassName("carousel-video"));
+})
+
+var stopVideo = function ( elements ) {
+
+	for (let element of elements) {
+		let iframe = element.querySelector( 'iframe');
+		let video = element.querySelector( 'video' );
+		if ( iframe ) {
+			let iframeSrc = iframe.src;
+			iframe.src = iframeSrc;
+		}
+		if ( video ) {
+			video.pause();
+		}
+	}
+
+};
+</script>
+
 <script type="text/javascript">
 let $body = $('body');
-let frameHeight = $('.frame').outerHeight() * 2;
+let $frames = $('.frame');
+let $nav = $('#nav-buttons');
+let frameHeight = $frames.outerHeight() * 2;
 let height = 0;
 
-$('.frame').each(function() {
+// CREATE FRAMES
+$frames.each(function() {
 	let $frame = $(this);
+	let frameId = $frame.attr('id');
+	let state = $frame.index() == 1 ? 'active' : null;
+
 	$frame.attr('data-start', height);
 	$frame.attr('data-end', height + frameHeight);
+
+	$nav.append('<button class="' + state + '" id="button-' + frameId + '" data-target="' + height + '" class="nav-button" type="button" data-toggle="tooltip" data-placement="left" title="' + $frame.attr('id') + '"><i class="far fa-circle fa-lg"></i></button>');
 
 	height += frameHeight;
 });
 
-$body.height(height + $('.frame').outerHeight());
+// SET TOTAL PAGE HEIGHT
+$body.height(height + $frames.outerHeight());
 
+// SCROLL ANIMATION
 $(window).scroll(function() {
 	let scroll = $(this).scrollTop();
-	let $currentFrame = $('.frame:visible');
-	let $body = $('body');
 
-	$('.frame').each(function() {
+	$frames.each(function() {
 		let $frame = $(this);
+		let start = $frame.attr('data-start');
+		let end = $frame.attr('data-end');
 
-		if (scroll >= $frame.attr('data-start') && scroll < $frame.attr('data-end')) {
-			$('.frame').not(this).fadeOut('slow');
+		if (scroll >= start && scroll < end) {
+			let index = $frame.index() - 1;
+
+			$frames.not(this).fadeOut('slow');
 			$frame.fadeIn('slow');
+			$('#button-' + $frame.attr('id')).addClass('active').siblings().removeClass('active');
+
+			if ($frame.hasClass('frame-view')) {
+				$nav.addClass('nav-light').removeClass('nav-dark');
+			} else {
+				$nav.addClass('nav-dark').removeClass('nav-light');
+			}
 		}
 	});
 });

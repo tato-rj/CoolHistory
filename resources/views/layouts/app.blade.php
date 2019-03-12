@@ -11,7 +11,7 @@
     <meta name="description" content="">
 
     <title>{{ config('app.name') }}</title>
-    
+
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     
     <link href="{{ asset('css/primer.css') }}" rel="stylesheet">
@@ -33,6 +33,8 @@
         </main>
         {{-- @include('layouts.footer.layout') --}}
     </div>
+
+@include('components.modals.media')
 
 {{-- @if(session()->has('status'))
 @include('components.alerts.success', ['message' => session('status')])
