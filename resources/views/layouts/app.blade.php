@@ -24,25 +24,15 @@
 
 </head>
 
-<body class="frame-1">
+<body>
 
     <div id="app">
-        {{-- @include('layouts.navbar.bar') --}}
+        @include('layouts.menu')
         <main class="position-relative">
             @yield('content')
         </main>
         {{-- @include('layouts.footer.layout') --}}
     </div>
-
-@include('components.modals.media')
-
-{{-- @if(session()->has('status'))
-@include('components.alerts.success', ['message' => session('status')])
-@endif
-
-@if(session()->has('error'))
-@include('components.alerts.error', ['message' => session('error')])
-@endif --}}
 
 <script src="{{ mix('js/app.js') }}"></script>
 

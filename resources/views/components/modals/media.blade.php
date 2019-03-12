@@ -1,34 +1,34 @@
-<div id="media-modal" class="position-fixed w-100 h-100vh" style="display: none; background: rgba(0,0,0,0.8); top: 0;
+<div id="media-modal" class="position-fixed w-100 h-100vh" style="display: none; background: black; top: 0;
 left: 0">
 	<button class="close-media text-white p-4 absolute-top-right bg-transparent border-0 z-10" style="width:80px;"><img class="w-100" src="{{asset('images/icons/close.svg')}}"></button>
   
   <div class="h-100">
-    <div id="carouselExampleIndicators" class="carousel slide h-100" data-interval="false" data-ride="carousel">
+    <div id="media-indicators" class="carousel slide h-100" data-interval="false" data-ride="carousel">
       <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        @foreach($media as $item)
+        <li data-target="#media-indicators" data-slide-to="{{$loop->index}}" class="{{$loop->first ? 'active' : null}}"></li>
+        @endforeach
       </ol>
       <div class="carousel-inner h-100 text-center">
-        <div class="carousel-item h-100 active">
-          <img class="d-block mx-auto h-100" src="https://picsum.photos/1600/1600/?random" alt="First slide">
-          <div class="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </div>
+        @foreach($media as $item)
+        <div class="carousel-item h-100 {{$loop->first ? 'active' : null}}">
+          @if(array_key_exists('label', $item))
+            <img class="d-block mx-auto h-100" src="{{$item['url']}}">
+            <div class="carousel-caption d-none d-md-block">
+              <h5 class="font-weight-bold">{{$item['label']}}</h5>
+              <p>{{$item['description']}}</p>
+            </div>
+          @else
+            <iframe src="{{$item['url']}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          @endif
         </div>
-        <div class="carousel-item carousel-video h-100">
-          <iframe src="https://www.youtube.com/embed/qN0FiiGMYP0?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div class="carousel-item h-100">
-          <img class="d-block mx-auto h-100" src="https://picsum.photos/1600/1200/?random" alt="Third slide">
-        </div>
+        @endforeach
       </div>
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <a class="carousel-control-prev" href="#media-indicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <a class="carousel-control-next" href="#media-indicators" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>

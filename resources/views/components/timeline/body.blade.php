@@ -10,6 +10,8 @@
 			<div class="mt-4">
 				<button class="bg-transparent border-0 text-white open-media"><i class="far fa-images fa-lg"></i></button>
 			</div>
+
+			@include('components.modals.media')
 			@endif
 
 		</div>

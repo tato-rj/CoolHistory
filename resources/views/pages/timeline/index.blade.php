@@ -53,7 +53,7 @@ p {
 
 .carousel-item iframe {
 	height: 100%;
-	width: 100%;
+	width: 80%;
 }
 
 .carousel-caption {
@@ -67,7 +67,7 @@ p {
 .carousel-caption p {
 	width: 50%;
 	margin: 0 auto;
-	font-size: 1em;
+	font-size: .75em;
 }
 
 #nav-buttons button {
@@ -95,6 +95,14 @@ p {
 .nav-light button {
 	color: white !important;
 }
+
+.hamburger-light, .hamburger-light:before, .hamburger-light:after {
+	background: white !important;
+}
+
+.hamburger-active, .hamburger-active:before, .hamburger-active:after {
+	background: black !important;
+}
 </style>
 @endpush
 
@@ -104,11 +112,10 @@ p {
 	</div>
 
 	@component('components.timeline.cover')
-	<div class="container h-100">
+	<div class="container h-100" id="page-title">
 		<div class="row flex-center h-100">
 			<div class="text-center col-10 col-xs-8">
-				<h1 class="font-weight-bold">88 keys</h1>
-				<p>A brief and fun timeline of the most awesome instrument of all!</p>
+				<h1 class="font-weight-bold animated">88 keys</h1>
 			</div>
 		</div>
 		<div class="absolute-bottom text-center">
@@ -121,7 +128,13 @@ p {
 		'bg' => 'blue',
 		'date' => 1720, 
 		'text' => 'Bartolomeo Cristofori introduced the first hammer-action pianoforte, and is credited by many as the “inventor” of the piano',
-		'media' => true])
+		'media' => [
+			['url' => 'https://collectionapi.metmuseum.org/api/collection/v1/iiif/501788/1467363/main-image', 'label' => 'Cristofori\'s piano', 'description' => 'The highly complex action of the modern piano may be traced directly to his original conception.'],
+			['url' => 'https://collectionapi.metmuseum.org/api/collection/v1/iiif/501788/1467385/main-image', 'label' => 'Cristofori\'s piano', 'description' => 'The highly complex action of the modern piano may be traced directly to his original conception.'],
+			['url' => 'https://www.youtube.com/embed/A2WdjyKQ57A'],
+			['url' => 'https://collectionapi.metmuseum.org/api/collection/v1/iiif/501788/1467323/main-image', 'label' => 'Cristofori\'s piano', 'description' => 'The highly complex action of the modern piano may be traced directly to his original conception.'],
+			['url' => 'https://collectionapi.metmuseum.org/api/collection/v1/iiif/501788/1467325/main-image', 'label' => 'Cristofori\'s piano', 'description' => 'The highly complex action of the modern piano may be traced directly to his original conception.']
+			]])
 
 	@include('components.timeline.frame', [
 		'bg' => 'teal',
@@ -155,6 +168,13 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip({trigger: 'hover',})
 });
 
+$('.hamburger').on('click', function() {
+	$(this).toggleClass('is-active');
+	$('#menu').fadeToggle();
+	$('body').toggleClass('overflow-hidden');
+	$('.hamburger-inner').toggleClass('hamburger-active');
+});
+
 // GO TO FRAME ON NAV CLICK
 $(document).on('click', '#nav-buttons button', function(event) {
 	let $button = $(this);
@@ -167,14 +187,16 @@ $(document).on('click', '#nav-buttons button', function(event) {
 
 $('button.open-media, button.close-media').on('click', function() {
 	$('.addthis-smartlayers, .nav').toggle();
-	$('#media-modal').fadeToggle();
+	$('#media-modal').toggle();
+	$('body').toggleClass('overflow-hidden');
+	$('.hamburger').toggle();
 
-	stopVideo(document.getElementsByClassName("carousel-video"));
+	stopVideo(document.getElementsByClassName("carousel-item"));
 
 });
 
 $('.carousel').on('slide.bs.carousel', function () {
-	stopVideo(document.getElementsByClassName("carousel-video"));
+	stopVideo(document.getElementsByClassName("carousel-item"));
 })
 
 var stopVideo = function ( elements ) {
@@ -198,6 +220,10 @@ var stopVideo = function ( elements ) {
 let $body = $('body');
 let $frames = $('.frame');
 let $nav = $('#nav-buttons');
+let $title = $('#page-title h1');
+let $arrow = $('#page-title .fa-arrow-down');
+let windowHeight = $(window).height();
+let position = $(window).scrollTop();
 let frameHeight = $frames.outerHeight() * 2;
 let height = 0;
 
@@ -222,6 +248,20 @@ $body.height(height + $frames.outerHeight());
 $(window).scroll(function() {
 	let scroll = $(this).scrollTop();
 
+	if (scroll > 0) {
+		$arrow.fadeOut();
+	} else {
+		$arrow.fadeIn();
+	}
+
+	if (scroll > windowHeight) {
+		if (scroll > position) {
+			$title.removeClass('fadeInDown').addClass('fadeOutUp');
+		} else {
+			$title.addClass('fadeInDown').removeClass('fadeOutUp');
+		}
+	}
+
 	$frames.each(function() {
 		let $frame = $(this);
 		let start = $frame.attr('data-start');
@@ -236,11 +276,15 @@ $(window).scroll(function() {
 
 			if ($frame.hasClass('frame-view')) {
 				$nav.addClass('nav-light').removeClass('nav-dark');
+				$('.hamburger-inner').addClass('hamburger-light');
 			} else {
 				$nav.addClass('nav-dark').removeClass('nav-light');
+				$('.hamburger-inner').removeClass('hamburger-light');
 			}
 		}
 	});
+
+	position = scroll;
 });
 
 </script>
