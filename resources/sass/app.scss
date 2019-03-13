@@ -1,5 +1,6 @@
 // Variables
 @import 'variables';
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -13,6 +14,7 @@
 body {
 	background: white;
 	transition: background-color 0.5s ease;
+	font-family: 'Nunito', sans-serif;
 }
 
 .frame {
@@ -26,4 +28,101 @@ body {
 
 .frame:first-of-type {
 	display: block;
+}
+
+button:focus {outline:0;}
+
+h1 {
+	font-size: 3.25rem;
+}
+
+.tooltip {
+	margin-right: 4px;
+}
+
+.timeline-view::before {
+	content: '';
+	width: 1px;
+	background-color: white;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 50%;
+}
+
+.timeline-view {
+	font-size: 1.4em;
+	position: relative;
+	text-align: center;
+}
+
+p {
+	font-size: 1.4em;
+}
+
+.absolute-bottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+.fixed-right {
+	position: fixed;
+	right: 0;
+	top: 0;
+	height: 100vh;
+}
+
+.carousel-item iframe {
+	height: 100%;
+	width: 80%;
+}
+
+.carousel-caption {
+	width: 100%;
+	left: 0;
+	bottom: 0;
+	padding-bottom: 52px;
+	background: rgba(0,0,0,0.5);
+}
+
+.carousel-caption p {
+	width: 50%;
+	margin: 0 auto;
+	font-size: .75em;
+}
+
+#nav-buttons button {
+    background: transparent;
+    border: none;
+    opacity: .3;
+    transform: scale(.8);
+    transition: .2s;
+}
+
+#nav-buttons button:hover {
+	transform: scale(1.15);
+	opacity: 1;
+}
+
+#nav-buttons button.active {
+	opacity: 1;
+	transform: scale(1.15);
+}
+
+#nav-buttons button:not(:last-of-type) {
+	margin-bottom: 8px;
+}
+
+.nav-light button {
+	color: white !important;
+}
+
+.hamburger-light, .hamburger-light:before, .hamburger-light:after {
+	background: white !important;
+}
+
+.hamburger-active, .hamburger-active:before, .hamburger-active:after {
+	background: black !important;
 }

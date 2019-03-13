@@ -31,7 +31,7 @@
         <main class="position-relative">
             @yield('content')
         </main>
-        {{-- @include('layouts.footer.layout') --}}
+        @include('layouts.footer')
     </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
