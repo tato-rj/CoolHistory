@@ -97,7 +97,7 @@ $frames.each(function() {
 	$frame.attr('data-start', height);
 	$frame.attr('data-end', height + frameHeight);
 
-	$nav.append('<button class="' + state + '" id="button-' + frameId + '" data-target="' + height + '" class="nav-button" type="button" data-toggle="tooltip" data-placement="left" title="' + $frame.attr('id') + '"><i class="far fa-circle fa-lg"></i></button>');
+	$nav.append('<button class="' + state + '" id="button-' + frameId + '" data-target="' + height + '" class="nav-button" type="button" data-toggle="tooltip" data-placement="left" title="' + $frame.attr('data-title') + '"><i class="far fa-circle fa-lg"></i></button>');
 
 	height += frameHeight;
 });

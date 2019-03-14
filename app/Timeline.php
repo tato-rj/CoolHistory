@@ -18,4 +18,9 @@ class Timeline extends Model
     {
         return 'slug';
     }
+
+    public function scopeByTitle($query, $date)
+    {
+        return $query->where('title', $date)->first();
+    }
 }

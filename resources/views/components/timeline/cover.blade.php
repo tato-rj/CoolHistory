@@ -1,4 +1,4 @@
-<section id="Home" class="frame frame-cover bg-white">
+<section id="home" data-title="Home" class="frame frame-cover bg-white">
 	<div class="container h-100" id="page-title">
 		<div class="row flex-center h-100 animated">
 			<div class="text-center col-10 col-xs-8">

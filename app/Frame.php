@@ -19,4 +19,9 @@ class Frame extends Model
     {
     	return $this->belongsTo(Timeline::class);
     }
+
+    public function scopeByTitle($query, $date)
+    {
+        return $query->where('title', $date)->first();
+    }
 }

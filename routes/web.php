@@ -13,6 +13,6 @@
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'TimelinesController@index');
 
-Route::get('/{timeline}', 'TimelinesController@show');
+Route::get('/{timeline}', 'TimelinesController@show')->name('timelines.show');

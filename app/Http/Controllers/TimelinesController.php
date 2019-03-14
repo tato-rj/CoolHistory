@@ -14,7 +14,9 @@ class TimelinesController extends Controller
      */
     public function index()
     {
-        //
+        $timelines = Timeline::all();
+
+        return view('pages.timeline.index', compact('timelines'));        
     }
 
     /**

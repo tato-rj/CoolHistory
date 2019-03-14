@@ -38,7 +38,7 @@ $factory->define(Frame::class, function(Faker $faker) {
 		'timeline_id' => function() {
 			return create(Timeline::class)->id;
 		},
-		'date' => $faker->year(),
+		'title' => $faker->year(),
 		'content' => $faker->paragraph,
 		'background' => $faker->word,
 	];

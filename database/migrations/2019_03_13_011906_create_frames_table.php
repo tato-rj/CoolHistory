@@ -16,7 +16,8 @@ class CreateFramesTable extends Migration
         Schema::create('frames', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('timeline_id');
-            $table->string('date');
+            $table->string('title')->unique();
+            $table->string('subtitle')->nullable();
             $table->string('content');
             $table->string('background');
             $table->timestamps();

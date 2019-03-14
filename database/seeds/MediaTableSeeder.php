@@ -12,7 +12,7 @@ class MediaTableSeeder extends Seeder
      */
     public function run()
     {
-        Timeline::find(1)->frames()->find(1)->media()->saveMany([
+        Timeline::find(1)->frames()->byTitle(1720)->media()->saveMany([
 			new Media([
 				'url' => 'https://collectionapi.metmuseum.org/api/collection/v1/iiif/501788/1467363/main-image',
 				'label' => 'Cristofori\'s piano',
@@ -38,7 +38,7 @@ class MediaTableSeeder extends Seeder
 			])
         ]);
 
-        Timeline::find(1)->frames()->find(2)->media()->saveMany([
+        Timeline::find(1)->frames()->byTitle(1760)->media()->saveMany([
 			new Media([
 				'url' => 'https://www.lindebladpiano.com/img/_files/zumpe-square1.jpg',
 				'label' => 'Zumpe\'s square piano',
@@ -49,7 +49,7 @@ class MediaTableSeeder extends Seeder
 			])
         ]);
 
-        Timeline::find(1)->frames()->find(3)->media()->saveMany([
+        Timeline::find(1)->frames()->byTitle(1780)->media()->saveMany([
 			new Media([
 				'url' => 'https://www.lindebladpiano.com/img/_files/streicher-action1.jpg',
 				'label' => 'Stein and Stein-Streicher new piano hammer',
@@ -57,11 +57,35 @@ class MediaTableSeeder extends Seeder
 			])
         ]);
 
-        Timeline::find(1)->frames()->find(4)->media()->saveMany([
+        Timeline::find(1)->frames()->byTitle(1811)->media()->saveMany([
 			new Media([
 				'url' => 'http://ids.si.edu/ids/deliveryService?id=NMAH-80-15316&max=1000',
 				'label' => 'Made by John Isaac Hawkins in Philadelphia, Pennsylvania in 1801',
 				'description' => 'Hawkins patented the ingenious small upright piano with a folding keyboard.'
+			])
+        ]);
+
+        Timeline::find(1)->frames()->byTitle(1853)->media()->saveMany([
+			new Media([
+				'url' => 'http://www.shullpiano.com/assets/images/Steinway_2162_hwd_2.jpg',
+				'label' => 'Steinway & Sons built in 1859',
+				'description' => 'The earliest known Steinway grand with original internal structure and action.'
+			]),
+			new Media([
+				'url' => 'https://www.youtube.com/embed/dMT4rfjeJko'
+			])
+        ]);
+
+        Timeline::find(1)->frames()->byTitle(1891)->media()->saveMany([
+			new Media([
+				'url' => 'http://ernestneuman.com/wp-content/uploads/2017/08/Carnegie-Hall.jpg',
+				'label' => 'Carnegie Hall',
+				'description' => 'One of the most famous musical buildings in the world.'
+			]),
+			new Media([
+				'url' => 'http://justfunfacts.com/wp-content/uploads/2017/11/carnegie-hall-old-photo-2.jpg',
+				'label' => 'Carnegie Hall',
+				'description' => 'The official opening night was May 5 1891, with a concert with great Russian composer and pianist Pyotr Ilyich Tchaikovsky.'
 			])
         ]);
     }

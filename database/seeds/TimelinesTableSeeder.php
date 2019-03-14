@@ -17,5 +17,11 @@ class TimelinesTableSeeder extends Seeder
         	'title' => '88 keys',
         	'subtitle' => 'A brief history of the piano'
         ]);
+
+        Timeline::create([
+            'slug' => str_slug('Nicknames explained'),
+            'title' => 'Nicknames explained',
+            'subtitle' => 'Classical music\'s most famous nicknames'
+        ]);
     }
 }

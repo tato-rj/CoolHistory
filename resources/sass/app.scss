@@ -97,7 +97,7 @@ p {
     background: transparent;
     border: none;
     opacity: .3;
-    transform: scale(.8);
+    transform: scale(.6);
     transition: .2s;
 }
 
@@ -112,7 +112,7 @@ p {
 }
 
 #nav-buttons button:not(:last-of-type) {
-	margin-bottom: 8px;
+	margin-bottom: 2px;
 }
 
 .nav-light button {

@@ -21060,8 +21060,8 @@ p {
   background: transparent;
   border: none;
   opacity: 0.3;
-  -webkit-transform: scale(0.8);
-          transform: scale(0.8);
+  -webkit-transform: scale(0.6);
+          transform: scale(0.6);
   transition: 0.2s;
 }
 
@@ -21078,7 +21078,7 @@ p {
 }
 
 #nav-buttons button:not(:last-of-type) {
-  margin-bottom: 8px;
+  margin-bottom: 2px;
 }
 
 .nav-light button {
